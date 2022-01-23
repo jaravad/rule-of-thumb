@@ -1,5 +1,6 @@
-const data = [
+export const data = [
   {
+    id: 1,
     name: 'Kanye West',
     description:
       'Born in Atlanta and raised in Chicago, West was first known as a producer for Roc-A-Fella Records in the early 2000s, producing singles for several mainstream artists.',
@@ -12,6 +13,7 @@ const data = [
     },
   },
   {
+    id: 2,
     name: 'Mark Zuckerberg',
     description:
       'Born in White Plains, New York, Zuckerberg attended Harvard University, where he launched the Facebook social networking service from his dormitory room on February 4, 2004.',
@@ -24,6 +26,7 @@ const data = [
     },
   },
   {
+    id: 3,
     name: 'Cristina Fernández de Kirchner',
     description:
       'Her first term of office started with a conflict with the agricultural sector, and her proposed taxation system was rejected.',
@@ -36,6 +39,7 @@ const data = [
     },
   },
   {
+    id: 4,
     name: 'Malala Yousafzai',
     description:
       'The daughter of educational activist Ziauddin, Yousafzai was born to a Pashtun family in Mingora, Khyber Pakhtunkhwa, Pakistan. Her family came to run a chain of schools in the region.',
@@ -48,6 +52,7 @@ const data = [
     },
   },
   {
+    id: 5,
     name: 'Elon Musk',
     description:
       'In 2002, Musk founded SpaceX, an aerospace manufacturer and space transport services company, of which he is CEO, CTO, and lead designer.',
@@ -60,6 +65,7 @@ const data = [
     },
   },
   {
+    id: 6,
     name: 'Greta Thumberg',
     description:
       "Thunberg's activism started after convincing her parents to adopt several lifestyle choices to reduce their own carbon footprint.",
@@ -72,5 +78,3 @@ const data = [
     },
   },
 ];
-
-export default data;

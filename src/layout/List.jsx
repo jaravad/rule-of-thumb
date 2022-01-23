@@ -1,14 +1,16 @@
+import { useSelector } from 'react-redux';
+
 import ListCard from '../components/ListCard';
 
-import data from '../assets/data';
-
 const List = () => {
+  const characters = useSelector((state) => state.characters);
+
   return (
     <>
       <h2>Previous Rulings</h2>
       <div className="grid-container">
-        {data.map((character, i) => {
-          return <ListCard character={character} key={i} />;
+        {characters.map((character) => {
+          return <ListCard character={character} key={character.id} />;
         })}
       </div>
     </>
