@@ -1,14 +1,13 @@
 import MessageBanner from '../components/MessageBanner';
 import SubmitBanner from '../components/SubmitBanner';
+import List from './List';
 
 const Main = () => {
   return (
     <div className="max-centered">
       <MessageBanner />
       <main role="main">
-        {/* <!-- Start: Implementation --> */}
-        👉 Your code goes here 👈
-        {/* <!-- End: Implementation --> */}
+        <List />
       </main>
       <SubmitBanner />
     </div>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const MessageBanner = () => {
   return (
     <aside className="banner banner-top" role="doc-tip" aria-label="Speak Out">

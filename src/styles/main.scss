@@ -463,6 +463,124 @@ main h2 {
   display: contents;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+}
+
+.list-card {
+  color: white;
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+
+  .background-photo {
+    position: absolute;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.0001) 0%,
+      #888888 19.79%,
+      #666666 50%,
+      rgba(51, 51, 51, 0.6) 71.88%
+    );
+  }
+  .inner-container {
+    width: 80%;
+    display: flex;
+    padding: 0.5rem 0.5rem 0.8rem;
+  }
+
+  .data-container {
+    min-width: 0;
+    flex-grow: 1;
+    position: relative;
+    margin-right: 0.5rem;
+    h3 {
+      color: white;
+      margin: 0 0 0.7rem;
+      font-size: 1.8rem;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  }
+
+  .details-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .buttons-container {
+    display: flex;
+    button {
+      min-height: 100%;
+      margin: 0 0.25rem;
+      appearance: none;
+      transition: background-color 150ms ease;
+      &.thumbs-btn {
+        border: 2px solid transparent;
+        padding: 0.4rem;
+      }
+      &.thumbs-up-btn {
+        background-color: rgba(var(--color-green-positive), 0.8);
+        &:hover {
+          background-color: rgba(var(--color-green-positive), 1);
+        }
+      }
+      &.thumbs-down-btn {
+        background-color: rgba(var(--color-yellow-negative), 0.8);
+        &:hover {
+          background-color: rgba(var(--color-yellow-negative), 1);
+        }
+      }
+      &.vote-now-btn {
+        white-space: nowrap;
+        border: 1px solid white;
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.6);
+        &:hover {
+          background-color: rgba(0, 0, 0, 1);
+        }
+      }
+    }
+    position: relative;
+  }
+
+  .date {
+    font-weight: 700;
+    font-size: 0.7rem;
+    display: block;
+    text-align: right;
+    position: relative;
+    margin-bottom: 0.8rem;
+  }
+}
+
 @media all and (min-width: 500px) {
   .banner-top .banner__left {
     flex-basis: 30%;
