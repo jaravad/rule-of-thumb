@@ -1,0 +1,28 @@
+name: Build and deploy to surge.sh
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
+      - name: Deploy to surge
+        uses: dswistowski/surge-sh-action@v1
+        with:
+          domain: ${{ secrets.surge_domain }}
+          project: 'build'
+          login: ${{ secrets.surge_login }}
+          token: ${{ secrets.surge_token }}
