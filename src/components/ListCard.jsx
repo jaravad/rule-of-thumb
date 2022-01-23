@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import clsx from 'clsx';
 
 import ThumbsUpIcon from './icons/ThumbsUp';
@@ -9,6 +10,11 @@ import { capitalizeFirstLetter, getImage } from '../utils';
 const iconsConfig = {
   width: '1.2rem',
   height: '1.2rem',
+};
+
+const availableOptions = {
+  voteUp: 'voteUp',
+  voteDown: 'voteDown',
 };
 
 const ListCard = ({ character }) => {
@@ -25,6 +31,17 @@ const ListCard = ({ character }) => {
 
   const isPositive = positive > negative;
   const isNegative = negative > positive;
+
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleOptionClick = (e) => {
+    const { name } = e.target;
+    if (selectedOption === name) {
+      setSelectedOption(null);
+      return;
+    }
+    setSelectedOption(name);
+  };
 
   return (
     <div className="list-card">
@@ -58,13 +75,31 @@ const ListCard = ({ character }) => {
             </span>
             <div className="buttons-wrapper">
               <div className="buttons-container">
-                <button className="thumbs-btn thumbs-up-btn">
+                <button
+                  name={availableOptions.voteUp}
+                  className={clsx(
+                    'thumbs-btn thumbs-up-btn',
+                    selectedOption === availableOptions.voteUp &&
+                      'thumbs-btn--selected'
+                  )}
+                  onClick={handleOptionClick}
+                >
                   <ThumbsUpIcon {...iconsConfig} />
                 </button>
-                <button className="thumbs-btn thumbs-down-btn">
+                <button
+                  name={availableOptions.voteDown}
+                  className={clsx(
+                    'thumbs-btn thumbs-down-btn',
+                    selectedOption === availableOptions.voteDown &&
+                      'thumbs-btn--selected'
+                  )}
+                  onClick={handleOptionClick}
+                >
                   <ThumbsDownIcon {...iconsConfig} />
                 </button>
-                <button className="vote-now-btn">Vote now</button>
+                <button className="vote-now-btn" disabled={!selectedOption}>
+                  Vote now
+                </button>
               </div>
             </div>
           </div>

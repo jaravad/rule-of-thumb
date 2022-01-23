@@ -1,10 +1,11 @@
-import { data } from '../../assets/data';
 import { types } from '../types';
 
-const initialState = data;
+const initialState = null;
 
 export const charactersReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.addCharacters:
+      return action.payload;
     case types.voteUp:
       return state;
     case types.voteDown:
