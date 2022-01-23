@@ -1,10 +1,12 @@
+import NavBar from './layout/NavBar';
+import Hero from './layout/Hero';
+
 const App = () => {
   return (
-    <main>
-      <h1>Bold</h1>
-      <h2>Light</h2>
-      <p>Regular</p>
-    </main>
+    <>
+      <NavBar />
+      <Hero />
+    </>
   );
 };
 
