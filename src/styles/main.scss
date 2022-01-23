@@ -469,11 +469,28 @@ main h2 {
   grid-gap: 1rem;
 }
 
+.overall-score-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.4rem;
+  z-index: 10;
+  &--positive {
+    background-color: rgba(var(--color-green-positive), 0.8);
+  }
+  &--negative {
+    background-color: rgba(var(--color-yellow-negative), 0.8);
+  }
+}
+
 .list-card {
   color: white;
-  display: flex;
   position: relative;
-  justify-content: flex-end;
+
+  .list-card-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
 
   .background-photo {
     position: absolute;
@@ -483,6 +500,7 @@ main h2 {
     object-fit: cover;
     object-position: center;
   }
+
   .overlay {
     position: absolute;
     width: 100%;
@@ -495,6 +513,7 @@ main h2 {
       rgba(51, 51, 51, 0.6) 71.88%
     );
   }
+
   .inner-container {
     width: 80%;
     display: flex;
@@ -536,7 +555,6 @@ main h2 {
   .buttons-container {
     display: flex;
     button {
-      min-height: 100%;
       margin: 0 0.25rem;
       appearance: none;
       transition: background-color 150ms ease;
@@ -578,6 +596,46 @@ main h2 {
     text-align: right;
     position: relative;
     margin-bottom: 0.8rem;
+  }
+}
+
+.gauge-bar {
+  display: flex;
+  height: 2.8rem;
+  width: 100%;
+  position: relative;
+
+  &__data {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: 1.4rem;
+    }
+
+    &--positive {
+      left: 1rem;
+      span {
+        margin-left: 0.5rem;
+      }
+    }
+    &--negative {
+      right: 1rem;
+      span {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .positive-fraction {
+    background-color: rgba(var(--color-green-positive), 0.6);
+  }
+
+  .negative-fraction {
+    background-color: rgba(var(--color-yellow-negative), 0.6);
   }
 }
 
