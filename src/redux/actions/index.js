@@ -11,6 +11,11 @@ export const setCharacterLoading = (characterId, loading) => ({
   payload: { id: characterId, loading },
 });
 
+export const setAlreadyVoted = (characterId, alreadyVoted) => ({
+  type: types.setAlreadyVoted,
+  payload: { id: characterId, alreadyVoted },
+});
+
 export const voteUpCharacter = (characterId) => {
   return async (dispatch) => {
     dispatch(setCharacterLoading(characterId, true));
@@ -23,6 +28,7 @@ export const voteUpCharacter = (characterId) => {
         type: types.voteUp,
         payload: characterId,
       });
+      dispatch(setAlreadyVoted(characterId, true));
     } catch (err) {
       console.error(err);
     }
@@ -42,6 +48,7 @@ export const voteDownCharacter = (characterId) => {
         type: types.voteDown,
         payload: characterId,
       });
+      dispatch(setAlreadyVoted(characterId, true));
     } catch (err) {
       console.error(err);
     }

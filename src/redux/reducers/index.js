@@ -16,6 +16,16 @@ export const charactersReducer = (state = initialState, action) => {
         }
         return character;
       });
+    case types.setAlreadyVoted:
+      return state.map((character) => {
+        if (character.id === action.payload.id) {
+          return {
+            ...character,
+            alreadyVoted: action.payload.alreadyVoted,
+          };
+        }
+        return character;
+      });
     case types.voteUp:
       return state.map((character) => {
         if (character.id === action.payload) {

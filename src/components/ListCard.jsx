@@ -7,7 +7,11 @@ import ThumbsDownIcon from './icons/ThumbsDown';
 import ButtonSpinner from './ButtonSpinner';
 import GaugeBar from './GaugeBar';
 
-import { voteDownCharacter, voteUpCharacter } from '../redux/actions';
+import {
+  setAlreadyVoted,
+  voteDownCharacter,
+  voteUpCharacter,
+} from '../redux/actions';
 import { capitalizeFirstLetter, getImage } from '../utils';
 import { dayjs } from '../utils/dates';
 
@@ -36,6 +40,9 @@ const ListCard = ({ character }) => {
   const loading = useSelector(
     (state) => state.characters.find((c) => c.id === id).loading
   );
+  const alreadyVoted = useSelector(
+    (state) => state.characters.find((c) => c.id === id).alreadyVoted
+  );
 
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -58,10 +65,15 @@ const ListCard = ({ character }) => {
 
   const handleVoteClick = () => {
     if (!loading) {
-      if (selectedOption === availableOptions.voteUp) {
-        dispatch(voteUpCharacter(id));
-      } else if (selectedOption === availableOptions.voteDown) {
-        dispatch(voteDownCharacter(id));
+      if (alreadyVoted) {
+        setSelectedOption(null);
+        dispatch(setAlreadyVoted(id, false));
+      } else {
+        if (selectedOption === availableOptions.voteUp) {
+          dispatch(voteUpCharacter(id));
+        } else if (selectedOption === availableOptions.voteDown) {
+          dispatch(voteDownCharacter(id));
+        }
       }
     }
   };
@@ -98,28 +110,32 @@ const ListCard = ({ character }) => {
             </span>
             <div className="buttons-wrapper">
               <div className="buttons-container">
-                <button
-                  name={availableOptions.voteUp}
-                  className={clsx(
-                    'thumbs-btn thumbs-up-btn',
-                    selectedOption === availableOptions.voteUp &&
-                      'thumbs-btn--selected'
-                  )}
-                  onClick={handleOptionClick}
-                >
-                  <ThumbsUpIcon {...iconsConfig} />
-                </button>
-                <button
-                  name={availableOptions.voteDown}
-                  className={clsx(
-                    'thumbs-btn thumbs-down-btn',
-                    selectedOption === availableOptions.voteDown &&
-                      'thumbs-btn--selected'
-                  )}
-                  onClick={handleOptionClick}
-                >
-                  <ThumbsDownIcon {...iconsConfig} />
-                </button>
+                {!alreadyVoted && (
+                  <>
+                    <button
+                      name={availableOptions.voteUp}
+                      className={clsx(
+                        'thumbs-btn thumbs-up-btn',
+                        selectedOption === availableOptions.voteUp &&
+                          'thumbs-btn--selected'
+                      )}
+                      onClick={handleOptionClick}
+                    >
+                      <ThumbsUpIcon {...iconsConfig} />
+                    </button>
+                    <button
+                      name={availableOptions.voteDown}
+                      className={clsx(
+                        'thumbs-btn thumbs-down-btn',
+                        selectedOption === availableOptions.voteDown &&
+                          'thumbs-btn--selected'
+                      )}
+                      onClick={handleOptionClick}
+                    >
+                      <ThumbsDownIcon {...iconsConfig} />
+                    </button>
+                  </>
+                )}
                 <button
                   className={clsx(
                     'vote-now-btn',
@@ -129,7 +145,7 @@ const ListCard = ({ character }) => {
                   disabled={!selectedOption || loading}
                 >
                   {loading && <ButtonSpinner />}
-                  <span>Vote now</span>
+                  <span>{alreadyVoted ? 'Vote Again' : 'Vote Now'}</span>
                 </button>
               </div>
             </div>

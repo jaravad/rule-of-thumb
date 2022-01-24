@@ -515,14 +515,14 @@ main h2 {
   }
 
   .inner-container {
-    width: 80%;
+    width: 75%;
     display: flex;
     padding: 0.5rem 0.5rem 0.8rem;
   }
 
   .data-container {
     min-width: 0;
-    flex-grow: 1;
+    max-width: 70%;
     position: relative;
     margin-right: 0.5rem;
     h3 {
@@ -542,6 +542,7 @@ main h2 {
 
   .details-container {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
   }
 
@@ -554,6 +555,7 @@ main h2 {
 
   .buttons-container {
     display: flex;
+    justify-content: flex-end;
     button {
       margin: 0 0.25rem;
       appearance: none;
@@ -583,7 +585,7 @@ main h2 {
       &.vote-now-btn {
         white-space: nowrap;
         border: 1px solid white;
-        padding: 0.4rem 1rem;
+        padding: 0.6rem 1rem;
         font-size: 0.9rem;
         color: white;
         background-color: rgba(21, 21, 21, 0.6);
@@ -596,10 +598,11 @@ main h2 {
           position: relative;
         }
         &:hover:not([disabled]) {
-          background-color: rgba(21, 21, 21, 1);
+          background-color: rgba(33, 33, 33, 1);
         }
         &:disabled {
-          opacity: 0.6;
+          opacity: 0.5;
+          cursor: default;
         }
       }
     }
@@ -613,12 +616,13 @@ main h2 {
     text-align: right;
     position: relative;
     margin-bottom: 0.8rem;
+    white-space: nowrap;
   }
 }
 
 .gauge-bar {
   display: flex;
-  height: 2.8rem;
+  height: 2.7rem;
   width: 100%;
   position: relative;
 

@@ -21,7 +21,12 @@ const AppRouter = () => {
         const charactersCol = collection(db, 'characters');
         const characterSnapShot = await getDocs(charactersCol);
         const characterList = characterSnapShot.docs.map((doc) => {
-          return { ...doc.data(), id: doc.id, loading: false };
+          return {
+            ...doc.data(),
+            id: doc.id,
+            loading: false,
+            alreadyVoted: false,
+          };
         });
         const action = setCharacters(characterList);
         dispatch(action);
