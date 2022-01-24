@@ -9,6 +9,7 @@ import GaugeBar from './GaugeBar';
 
 import { voteDownCharacter, voteUpCharacter } from '../redux/actions';
 import { capitalizeFirstLetter, getImage } from '../utils';
+import { dayjs } from '../utils/dates';
 
 const iconsConfig = {
   width: '1.2rem',
@@ -27,6 +28,7 @@ const ListCard = ({ character }) => {
     description,
     category,
     picture,
+    lastUpdated,
     votes: { positive, negative },
   } = character;
 
@@ -35,13 +37,15 @@ const ListCard = ({ character }) => {
     (state) => state.characters.find((c) => c.id === id).loading
   );
 
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const timeDifference = dayjs().to(dayjs(lastUpdated), true);
+
   const pictureSrc = getImage(`./${picture}-small.png`);
   const picture2xSrc = getImage(`./${picture}-small@2x.png`);
 
   const isPositive = positive > negative;
   const isNegative = negative > positive;
-
-  const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionClick = (e) => {
     const { name } = e.target;
@@ -90,7 +94,7 @@ const ListCard = ({ character }) => {
 
           <div className="details-container">
             <span className="date">
-              1 year ago in {capitalizeFirstLetter(category)}
+              {timeDifference} ago in {capitalizeFirstLetter(category)}
             </span>
             <div className="buttons-wrapper">
               <div className="buttons-container">
