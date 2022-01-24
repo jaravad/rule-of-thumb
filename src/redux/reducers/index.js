@@ -4,12 +4,44 @@ const initialState = null;
 
 export const charactersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.addCharacters:
+    case types.setCharacters:
       return action.payload;
+    case types.setCharacterLoading:
+      return state.map((character) => {
+        if (character.id === action.payload.id) {
+          return {
+            ...character,
+            loading: action.payload.loading,
+          };
+        }
+        return character;
+      });
     case types.voteUp:
-      return state;
+      return state.map((character) => {
+        if (character.id === action.payload) {
+          return {
+            ...character,
+            votes: {
+              ...character.votes,
+              positive: character.votes.positive + 1,
+            },
+          };
+        }
+        return character;
+      });
     case types.voteDown:
-      return state;
+      return state.map((character) => {
+        if (character.id === action.payload) {
+          return {
+            ...character,
+            votes: {
+              ...character.votes,
+              negative: character.votes.negative + 1,
+            },
+          };
+        }
+        return character;
+      });
     default:
       return state;
   }

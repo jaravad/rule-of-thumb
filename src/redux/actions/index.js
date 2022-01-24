@@ -1,11 +1,50 @@
+import { db, doc, updateDoc, increment } from '../../firebase';
 import { types } from '../types';
 
-export const addCharacters = (characters) => ({
-  type: types.addCharacters,
+export const setCharacters = (characters) => ({
+  type: types.setCharacters,
   payload: characters,
 });
 
-export const voteUp = (characterId) => ({
-  type: types.voteUp,
-  payload: { characterId },
+export const setCharacterLoading = (characterId, loading) => ({
+  type: types.setCharacterLoading,
+  payload: { id: characterId, loading },
 });
+
+export const voteUpCharacter = (characterId) => {
+  return async (dispatch) => {
+    dispatch(setCharacterLoading(characterId, true));
+    try {
+      const characterRef = doc(db, 'characters', characterId);
+      await updateDoc(characterRef, {
+        'votes.positive': increment(1),
+      });
+      dispatch({
+        type: types.voteUp,
+        payload: characterId,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    dispatch(setCharacterLoading(characterId, false));
+  };
+};
+
+export const voteDownCharacter = (characterId) => {
+  return async (dispatch) => {
+    dispatch(setCharacterLoading(characterId, true));
+    try {
+      const characterRef = doc(db, 'characters', characterId);
+      await updateDoc(characterRef, {
+        'votes.negative': increment(1),
+      });
+      dispatch({
+        type: types.voteDown,
+        payload: characterId,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    dispatch(setCharacterLoading(characterId, false));
+  };
+};

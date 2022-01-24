@@ -6,7 +6,7 @@ import Home from './Home';
 import AppLoading from './components/AppLoading';
 
 import { db, collection, getDocs } from './firebase';
-import { addCharacters } from './redux/actions';
+import { setCharacters } from './redux/actions';
 import { data } from './assets/data';
 
 const AppRouter = () => {
@@ -21,12 +21,12 @@ const AppRouter = () => {
         const charactersCol = collection(db, 'characters');
         const characterSnapShot = await getDocs(charactersCol);
         const characterList = characterSnapShot.docs.map((doc) => {
-          return { ...doc.data(), id: doc.id };
+          return { ...doc.data(), id: doc.id, loading: false };
         });
-        const action = addCharacters(characterList);
+        const action = setCharacters(characterList);
         dispatch(action);
       } catch (err) {
-        const action = addCharacters(data);
+        const action = setCharacters(data);
         dispatch(action);
         console.error(err);
       }

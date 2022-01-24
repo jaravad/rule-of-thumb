@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 
 import ThumbsUpIcon from './icons/ThumbsUp';
 import ThumbsDownIcon from './icons/ThumbsDown';
+import ButtonSpinner from './ButtonSpinner';
 import GaugeBar from './GaugeBar';
 
+import { voteDownCharacter, voteUpCharacter } from '../redux/actions';
 import { capitalizeFirstLetter, getImage } from '../utils';
 
 const iconsConfig = {
@@ -19,12 +22,18 @@ const availableOptions = {
 
 const ListCard = ({ character }) => {
   const {
+    id,
     name,
     description,
     category,
     picture,
     votes: { positive, negative },
   } = character;
+
+  const dispatch = useDispatch();
+  const loading = useSelector(
+    (state) => state.characters.find((c) => c.id === id).loading
+  );
 
   const pictureSrc = getImage(`./${picture}-small.png`);
   const picture2xSrc = getImage(`./${picture}-small@2x.png`);
@@ -41,6 +50,16 @@ const ListCard = ({ character }) => {
       return;
     }
     setSelectedOption(name);
+  };
+
+  const handleVoteClick = () => {
+    if (!loading) {
+      if (selectedOption === availableOptions.voteUp) {
+        dispatch(voteUpCharacter(id));
+      } else if (selectedOption === availableOptions.voteDown) {
+        dispatch(voteDownCharacter(id));
+      }
+    }
   };
 
   return (
@@ -97,8 +116,16 @@ const ListCard = ({ character }) => {
                 >
                   <ThumbsDownIcon {...iconsConfig} />
                 </button>
-                <button className="vote-now-btn" disabled={!selectedOption}>
-                  Vote now
+                <button
+                  className={clsx(
+                    'vote-now-btn',
+                    loading && 'vote-now-btn--loading'
+                  )}
+                  onClick={handleVoteClick}
+                  disabled={!selectedOption || loading}
+                >
+                  {loading && <ButtonSpinner />}
+                  <span>Vote now</span>
                 </button>
               </div>
             </div>

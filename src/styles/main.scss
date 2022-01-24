@@ -588,6 +588,13 @@ main h2 {
         color: white;
         background-color: rgba(21, 21, 21, 0.6);
         transition: opacity 150ms ease, background-color 150ms ease;
+        position: relative;
+        &--loading span {
+          visibility: hidden;
+        }
+        span {
+          position: relative;
+        }
         &:hover:not([disabled]) {
           background-color: rgba(21, 21, 21, 1);
         }
@@ -685,6 +692,21 @@ main h2 {
   border-right-color: transparent;
   border-radius: 50%;
   animation: 1000ms linear infinite spinner-border;
+  &--btn {
+    border-color: white;
+    border-right-color: #212121;
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.25rem;
+    position: relative;
+  }
+}
+
+.button-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media all and (min-width: 500px) {
