@@ -463,10 +463,21 @@ main h2 {
   display: contents;
 }
 
+// ===== Styles for grid and list layout =====
+
 .grid-container {
   display: grid;
+}
+
+.grid-template--list-view {
   grid-template-columns: 1fr;
   grid-gap: 1rem;
+}
+
+.grid-template--grid-view {
+  grid-template-columns: auto;
+  grid-template-rows: 1fr;
+  grid-gap: 1.3rem;
 }
 
 .overall-score-indicator {
@@ -475,13 +486,24 @@ main h2 {
   left: 0;
   padding: 0.4rem;
   z-index: 1;
+  display: inline-block;
+
   &--positive {
     background-color: rgba(var(--color-green-positive), 0.8);
   }
+
   &--negative {
     background-color: rgba(var(--color-yellow-negative), 0.8);
   }
 }
+
+.overall-score-indicator--grid-card {
+  padding: 0.4rem;
+  display: inline-block;
+  z-index: 1;
+}
+
+// ===== Styles for ListCard component =====
 
 .list-card {
   color: white;
@@ -530,9 +552,11 @@ main h2 {
       margin: 0 0 0.7rem;
       font-size: 1.8rem;
       font-weight: 400;
-      white-space: nowrap;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
       overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: break-spaces;
     }
     p {
       margin: 0;
@@ -552,72 +576,72 @@ main h2 {
     flex-direction: column;
     justify-content: center;
   }
+}
 
-  .buttons-container {
-    display: flex;
-    justify-content: flex-end;
-    button {
-      margin: 0 0.25rem;
-      appearance: none;
-      transition: background-color 150ms ease, border-color 150ms ease;
-      &.thumbs-btn {
-        border: 2px solid transparent;
-        padding: 0.4rem;
-        &--selected {
-          border-color: white;
-        }
-        & > * {
-          pointer-events: none;
-        }
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin: 0 0.25rem;
+    appearance: none;
+    transition: background-color 150ms ease, border-color 150ms ease;
+    &.thumbs-btn {
+      border: 2px solid transparent;
+      padding: 0.4rem;
+      &--selected {
+        border-color: white;
       }
-      &.thumbs-up-btn {
-        background-color: rgba(var(--color-green-positive), 0.8);
-        &:hover {
-          background-color: rgba(var(--color-green-positive), 1);
-        }
-      }
-      &.thumbs-down-btn {
-        background-color: rgba(var(--color-yellow-negative), 0.8);
-        &:hover {
-          background-color: rgba(var(--color-yellow-negative), 1);
-        }
-      }
-      &.vote-now-btn {
-        white-space: nowrap;
-        border: 1px solid white;
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-        color: white;
-        background-color: rgba(21, 21, 21, 0.6);
-        transition: opacity 150ms ease, background-color 150ms ease;
-        position: relative;
-        &--loading span {
-          visibility: hidden;
-        }
-        span {
-          position: relative;
-        }
-        &:hover:not([disabled]) {
-          background-color: rgba(33, 33, 33, 1);
-        }
-        &:disabled {
-          opacity: 0.5;
-          cursor: default;
-        }
+      & > * {
+        pointer-events: none;
       }
     }
-    position: relative;
+    &.thumbs-up-btn {
+      background-color: rgba(var(--color-green-positive), 0.8);
+      &:hover {
+        background-color: rgba(var(--color-green-positive), 1);
+      }
+    }
+    &.thumbs-down-btn {
+      background-color: rgba(var(--color-yellow-negative), 0.8);
+      &:hover {
+        background-color: rgba(var(--color-yellow-negative), 1);
+      }
+    }
+    &.vote-now-btn {
+      white-space: nowrap;
+      border: 1px solid white;
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      color: white;
+      background-color: rgba(21, 21, 21, 0.6);
+      transition: opacity 150ms ease, background-color 150ms ease;
+      position: relative;
+      &--loading span {
+        visibility: hidden;
+      }
+      span {
+        position: relative;
+      }
+      &:hover:not([disabled]) {
+        background-color: rgba(33, 33, 33, 1);
+      }
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+    }
   }
+  position: relative;
+}
 
-  .date {
-    font-weight: 700;
-    font-size: 0.8rem;
-    display: block;
-    text-align: right;
-    position: relative;
-    margin-bottom: 0.8rem;
-    white-space: nowrap;
-  }
+.date {
+  font-weight: 700;
+  font-size: 0.8rem;
+  display: block;
+  text-align: right;
+  position: relative;
+  margin-bottom: 0.8rem;
+  white-space: nowrap;
 }
 
 .gauge-bar {
@@ -674,6 +698,8 @@ main h2 {
   }
 }
 
+// ===== Styles for spinners and AppLoading component =====
+
 .loading__wrapper {
   height: 100vh;
   display: flex;
@@ -724,6 +750,53 @@ main h2 {
   margin: 0;
 }
 
+// ===== Styles for Grid Card component =====
+
+.grid-card {
+  color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.grid-card__content {
+  padding-top: 8rem;
+  h3 {
+    font-size: 1.8rem;
+    color: white;
+    font-weight: 400;
+    margin: 0 0 0 0.25rem;
+    line-height: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    white-space: break-spaces;
+  }
+
+  p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 0.9rem;
+    margin: 0 0 0.7rem 0.25rem;
+  }
+}
+
+.grid-card__content--inner {
+  padding: 0 2rem 1rem;
+}
+
+.grid-card__title-wrapper {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0.4rem;
+}
+
 // ===== Media queries =====
 
 @media all and (min-width: 500px) {
@@ -733,6 +806,11 @@ main h2 {
 
   .banner-top .banner__right {
     flex-basis: 70%;
+  }
+
+  .grid-template--grid-view {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
   }
 }
 
@@ -834,6 +912,11 @@ main h2 {
 
   .footer__social > ul {
     margin-top: 3px;
+  }
+
+  .grid-template--grid-view {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
   }
 }
 
