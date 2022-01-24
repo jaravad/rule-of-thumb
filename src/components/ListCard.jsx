@@ -106,7 +106,9 @@ const ListCard = ({ character }) => {
 
           <div className="details-container">
             <span className="date">
-              {timeDifference} ago in {capitalizeFirstLetter(category)}
+              {alreadyVoted
+                ? 'Thank you for your vote!'
+                : `${timeDifference} ago in ${capitalizeFirstLetter(category)}`}
             </span>
             <div className="buttons-wrapper">
               <div className="buttons-container">
