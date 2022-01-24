@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
 
 import ThumbsUpIcon from './icons/ThumbsUp';
 import ThumbsDownIcon from './icons/ThumbsDown';
@@ -20,13 +21,15 @@ const availableOptions = {
   voteDown: 'voteDown',
 };
 
-const iconsConfig = {
-  width: '1.2rem',
-  height: '1.2rem',
-};
-
 const VoteControl = (props) => {
   const [selectedOption, setSelectedOption] = useState(null);
+
+  const isDesktopSize = useMediaQuery({ minWidth: 768 });
+
+  const iconsConfig = {
+    width: isDesktopSize ? '18px' : '16px',
+    height: isDesktopSize ? '18px' : '16px',
+  };
 
   const { id, category, lastUpdated } = props;
 
@@ -79,9 +82,9 @@ const VoteControl = (props) => {
               <button
                 name={availableOptions.voteUp}
                 className={clsx(
-                  'thumbs-btn thumbs-up-btn',
+                  'vote__button vote__button--thumbs-up',
                   selectedOption === availableOptions.voteUp &&
-                    'thumbs-btn--selected'
+                    'vote__button--selected'
                 )}
                 onClick={handleOptionClick}
               >
@@ -90,9 +93,9 @@ const VoteControl = (props) => {
               <button
                 name={availableOptions.voteDown}
                 className={clsx(
-                  'thumbs-btn thumbs-down-btn',
+                  'vote__button vote__button--thumbs-down',
                   selectedOption === availableOptions.voteDown &&
-                    'thumbs-btn--selected'
+                    'vote__button--selected'
                 )}
                 onClick={handleOptionClick}
               >
@@ -101,7 +104,10 @@ const VoteControl = (props) => {
             </>
           )}
           <button
-            className={clsx('vote-now-btn', loading && 'vote-now-btn--loading')}
+            className={clsx(
+              'vote-now__button',
+              loading && 'vote-now__button--loading'
+            )}
             onClick={handleVoteClick}
             disabled={(!selectedOption && !alreadyVoted) || loading}
           >

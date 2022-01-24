@@ -3,12 +3,7 @@ import ThumbsUpIcon from './icons/ThumbsUp';
 
 import { roundToFixed } from '../utils';
 
-const iconConfig = {
-  width: '1.2rem',
-  height: '1.2rem',
-};
-
-const GaugeBar = ({ positive = 0, negative = 0 }) => {
+const GaugeBar = ({ positive = 0, negative = 0, smallIcons }) => {
   const total = positive + negative;
   const positivePercentage = (positive / total) * 100;
   const negativePercentage = (negative / total) * 100;
@@ -20,7 +15,7 @@ const GaugeBar = ({ positive = 0, negative = 0 }) => {
         className="positive-fraction"
       >
         <div className="gauge-bar__data gauge-bar__data--positive">
-          <ThumbsUpIcon {...iconConfig} />
+          <ThumbsUpIcon className="gauge-bar__icon" />
           <span>{roundToFixed(positivePercentage)}%</span>
         </div>
       </div>
@@ -30,7 +25,7 @@ const GaugeBar = ({ positive = 0, negative = 0 }) => {
       >
         <div className="gauge-bar__data gauge-bar__data--negative">
           <span>{roundToFixed(negativePercentage)}%</span>
-          <ThumbsDown {...iconConfig} />
+          <ThumbsDown className="gauge-bar__icon" />
         </div>
       </div>
     </div>

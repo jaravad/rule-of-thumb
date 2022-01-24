@@ -8,8 +8,8 @@ import GaugeBar from './GaugeBar';
 import { getImage } from '../utils';
 
 const iconsConfig = {
-  width: '1.1rem',
-  height: '1.1rem',
+  width: '1.5rem',
+  height: '1.5rem',
 };
 
 const GridCard = ({ character }) => {
@@ -43,8 +43,18 @@ const GridCard = ({ character }) => {
               'overall-score-indicator--negative': isNegative,
             })}
           >
-            {isPositive && <ThumbsUpIcon {...iconsConfig} />}
-            {isNegative && <ThumbsDownIcon {...iconsConfig} />}
+            {isPositive && (
+              <ThumbsUpIcon
+                {...iconsConfig}
+                className="grid-card__overall-score--icon"
+              />
+            )}
+            {isNegative && (
+              <ThumbsDownIcon
+                {...iconsConfig}
+                className="grid-card__overall-score--icon"
+              />
+            )}
           </div>
           <h3>{name}</h3>
         </div>
