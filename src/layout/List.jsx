@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import Select from 'react-select';
 import clsx from 'clsx';
 
@@ -19,7 +20,11 @@ const List = () => {
 
   const characters = useSelector((state) => state.characters);
 
-  const CardComponent = selectedOption.component;
+  const isMobileScreen = useMediaQuery({ maxWidth: 499 });
+
+  const CardComponent = isMobileScreen
+    ? options[1].component
+    : selectedOption.component;
 
   return (
     <>
@@ -27,21 +32,31 @@ const List = () => {
         <>
           <div className="list__title-wrapper">
             <h2 className="list__title">Previous Rulings</h2>
-            <Select
-              value={selectedOption}
-              placeholder={false}
-              options={options}
-              onChange={setSelectedOption}
-              isSearchable={false}
-              theme={selectTheme}
-              styles={customSelectStyles}
-            />
+            {!isMobileScreen && (
+              <Select
+                value={selectedOption}
+                placeholder={false}
+                options={options}
+                onChange={setSelectedOption}
+                isSearchable={false}
+                theme={selectTheme}
+                styles={customSelectStyles}
+              />
+            )}
           </div>
           <div
-            className={clsx('grid-container', {
-              'grid-template--list-view': selectedOption.value === 'list',
-              'grid-template--grid-view': selectedOption.value === 'grid',
-            })}
+            className={clsx(
+              {
+                'horizontal-overflow__container': isMobileScreen,
+                'grid-container': !isMobileScreen,
+              },
+              {
+                'grid-template--list-view':
+                  selectedOption.value === 'list' && !isMobileScreen,
+                'grid-template--grid-view':
+                  selectedOption.value === 'grid' && !isMobileScreen,
+              }
+            )}
           >
             {characters.map((character) => {
               return <CardComponent character={character} key={character.id} />;

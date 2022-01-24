@@ -23,7 +23,7 @@ const GridCard = ({ character }) => {
     votes: { positive, negative },
   } = character;
 
-  const picture2xSrc = getImage(`./${picture}-small@2x.png`);
+  const pictureSrc = getImage(`./${picture}.png`);
 
   const isPositive = positive > negative;
   const isNegative = negative > positive;
@@ -32,7 +32,7 @@ const GridCard = ({ character }) => {
     <div
       className="grid-card"
       style={{
-        backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%), url(${picture2xSrc})`,
+        backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%), url(${pictureSrc})`,
       }}
     >
       <div className="grid-card__content">
