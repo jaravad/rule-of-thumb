@@ -693,6 +693,11 @@ main h2 {
     }
   }
 
+  .positive-fraction,
+  .negative-fraction {
+    transition: width 200ms ease;
+  }
+
   .positive-fraction {
     background-color: rgba(var(--color-green-positive), 0.6);
   }

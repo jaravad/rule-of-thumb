@@ -4,6 +4,9 @@ export const capitalizeFirstLetter = (name) => {
 
 export const roundToFixed = (input, digits = 1) => {
   var rounded = Math.pow(10, digits);
+  if (input === 0) {
+    return input;
+  }
   return (Math.round(input * rounded) / rounded).toFixed(digits);
 };
 

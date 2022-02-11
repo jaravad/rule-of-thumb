@@ -1,3 +1,5 @@
+import splitbee from '@splitbee/web';
+
 import { db, doc, updateDoc, increment } from '../../firebase';
 import { types } from '../types';
 
@@ -28,6 +30,9 @@ export const voteUpCharacter = (characterId) => {
         type: types.voteUp,
         payload: characterId,
       });
+      splitbee.track('Vote up character', {
+        characterId,
+      });
       dispatch(setAlreadyVoted(characterId, true));
     } catch (err) {
       console.error(err);
@@ -47,6 +52,9 @@ export const voteDownCharacter = (characterId) => {
       dispatch({
         type: types.voteDown,
         payload: characterId,
+      });
+      splitbee.track('Vote down character', {
+        characterId,
       });
       dispatch(setAlreadyVoted(characterId, true));
     } catch (err) {
